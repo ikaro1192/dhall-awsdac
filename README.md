@@ -1,6 +1,6 @@
 # dhall-awsdac
 
-A Dhall library for [awsdac (aws-samples/diagram-as-code)](https://github.com/awslabs/diagram-as-code). Describe AWS architecture diagrams in type-safe Dhall, convert to awsdac-compatible YAML with `dhall-to-yaml`, then render to PNG with the `awsdac` CLI.
+A Dhall library for [awsdac (awslabs/diagram-as-code)](https://github.com/awslabs/diagram-as-code). Describe AWS architecture diagrams in type-safe Dhall, convert to awsdac-compatible YAML with `dhall-to-yaml`, then render to PNG with the `awsdac` CLI.
 
 ```
 diagram.dhall ──dhall-to-yaml──► diagram.yaml ──awsdac──► diagram.png
