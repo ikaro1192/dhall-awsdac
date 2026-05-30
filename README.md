@@ -6,8 +6,6 @@ A Dhall library for [awsdac (aws-samples/diagram-as-code)](https://github.com/aw
 diagram.dhall ──dhall-to-yaml──► diagram.yaml ──awsdac──► diagram.png
 ```
 
-See [spec.md](./spec.md) for design rationale and the awsdac internals this library relies on.
-
 ---
 
 ## Requirements
