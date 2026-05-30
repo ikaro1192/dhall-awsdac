@@ -153,4 +153,4 @@ AWSDAC=/tmp/awsdac-head bash test/render.sh
 
 ## License
 
-TBD.
+Apache License 2.0. See [LICENSE](./LICENSE).
