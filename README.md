@@ -66,7 +66,7 @@ dhall-to-yaml --omit-empty --file diagram.dhall > diagram.yaml
 awsdac diagram.yaml -o diagram.png
 ```
 
-Full examples: [`examples/alb-ec2.dhall`](./examples/alb-ec2.dhall), [`examples/vpc-natgw.dhall`](./examples/vpc-natgw.dhall).
+Full examples: [`examples/alb-ec2.dhall`](./examples/alb-ec2.dhall), [`examples/vpc-natgw.dhall`](./examples/vpc-natgw.dhall), [`examples/cloudfront-ecs-rds.dhall`](./examples/cloudfront-ecs-rds.dhall) (CloudFront / S3 / ALB / ECS / RDS / ElastiCache with locally-composed helpers).
 
 ---
 
