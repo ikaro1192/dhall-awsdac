@@ -18,12 +18,7 @@ let Arrow = awsdac.Arrow
 
 let IF = awsdac.IconFillType
 
-let Resource = awsdac.Schema.Resource
-
-let entry =
-      \(n : Text) ->
-      \(r : Resource) ->
-        { mapKey = n, mapValue = r }
+let entry = awsdac.Schema.entry
 
 in    D.Diagram
     ::  { Diagram =

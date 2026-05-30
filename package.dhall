@@ -18,6 +18,7 @@
   , DefinitionDirectory = ./schema/DefinitionDirectory.dhall
   , DefinitionZipFile = ./schema/DefinitionZipFile.dhall
   , DefinitionCFn = ./schema/DefinitionCFn.dhall
+  , entry = ./schema/entry.dhall
   }
 , Defaults =
   { Diagram = ./defaults/Diagram.dhall

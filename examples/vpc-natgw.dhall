@@ -12,12 +12,7 @@ let Align = awsdac.Align
 
 let DF = awsdac.DefinitionFile
 
-let Resource = awsdac.Schema.Resource
-
-let entry =
-      \(n : Text) ->
-      \(r : Resource) ->
-        { mapKey = n, mapValue = r }
+let entry = awsdac.Schema.entry
 
 in    D.Diagram
     ::  { Diagram =

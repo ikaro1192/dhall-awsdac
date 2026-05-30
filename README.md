@@ -30,15 +30,12 @@ cd diagram-as-code && go build -o /usr/local/bin/awsdac ./cmd/awsdac
 -- diagram.dhall
 let awsdac = ./package.dhall
 
-let D   = awsdac.Defaults
-let AWS = awsdac.AWS.Types
-let P   = awsdac.AWS.Presets
-let Dir = awsdac.Direction
-let DF  = awsdac.DefinitionFile
-
-let entry =
-      \(n : Text) -> \(r : awsdac.Schema.Resource) ->
-        { mapKey = n, mapValue = r }
+let D     = awsdac.Defaults
+let AWS   = awsdac.AWS.Types
+let P     = awsdac.AWS.Presets
+let Dir   = awsdac.Direction
+let DF    = awsdac.DefinitionFile
+let entry = awsdac.Schema.entry
 
 in    D.Diagram
     ::  { Diagram =
@@ -108,10 +105,10 @@ dhall hash --file package.dhall
 ```dhall
 let awsdac = ./package.dhall
 
-awsdac.Schema.{Diagram, Resource, Link, ...}     -- types
-awsdac.Defaults.{Diagram, Resource, Link, Label} -- :: defaults
+awsdac.Schema.{Diagram, Resource, Link, ..., entry}  -- types + `entry` resource-map helper
+awsdac.Defaults.{Diagram, Resource, Link, Label}     -- :: defaults
 awsdac.{Position, Direction, Align, HeaderAlign, BorderType, LineStyle, LinkType, ArrowHeadType, IconFillType}
-awsdac.Color.{rgba, rgb, transparent, black, white}
+awsdac.Color.{rgba, rgb, rgbaClamped, rgbClamped, clamp255, transparent, black, white}
 awsdac.DefinitionFile.{url, localFile, embed, awsLightIcons}  -- embed takes a Schema.Embed (DefinitionStructure)
 awsdac.Arrow.{open, default}
 awsdac.AWS.Types.{Diagram, EC2, ElasticLoadBalancingV2, AutoScaling, RDS, Lambda, S3, IAM, DynamoDB, SQS, SNS, CloudFront, Route53, ApiGatewayV2, CloudWatch, ECS, ...}  -- ~145 resources; see aws/Types.dhall
@@ -143,7 +140,7 @@ AWSDAC=/tmp/awsdac-head bash test/render.sh
 - AWS type constants are mechanically generated from the upstream awsdac icon-definition YAML (~145 resource-level entries in `aws/Types.dhall`, ~184 service-level entries in `aws/Services.dhall`). Anything upstream doesn't define can be written as a literal `"AWS::Foo::Bar"` string; awsdac falls back to the service-level icon when a resource type isn't recognised. Re-run `python3 tools/gen-aws-types.py` to refresh from upstream.
 - `DefinitionFile.Embed` is hand-translated from awsdac's `definition.Definition` Go struct. Drift from upstream must be tracked manually (no CI check yet).
 - No high-level abstractions like "create a VPC with public/private subnets" — users compose their own helpers.
-- `Color.rgba` cannot enforce the 0–255 range at the Dhall type level; documented as a contract.
+- `Color.rgba` / `rgb` cannot enforce the 0–255 range at the Dhall type level (documented as a contract). Use `Color.rgbaClamped` / `rgbClamped` for runtime-saturating variants when constructing colors from arithmetic.
 - Semantic awsdac constraints (e.g. Canvas must exist) are not expressible in Dhall and surface as awsdac runtime errors.
 - `dhall-to-yaml` emits record fields in alphabetical order, so `Type` is not at the top of each resource. Functionally harmless, just less readable.
 

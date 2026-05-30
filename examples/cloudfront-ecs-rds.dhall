@@ -23,16 +23,11 @@ let DF = awsdac.DefinitionFile
 
 let Arrow = awsdac.Arrow
 
-let Resource = awsdac.Schema.Resource
+let entry = awsdac.Schema.entry
 
 -- ── own helpers ────────────────────────────────────────────────────────────
 -- Compose the small primitives the library exposes into the shapes this
 -- diagram actually needs.
-
-let entry =
-      \(n : Text) ->
-      \(r : Resource) ->
-        { mapKey = n, mapValue = r }
 
 let resource = \(t : Text) -> D.Resource::{ Type = t }
 
