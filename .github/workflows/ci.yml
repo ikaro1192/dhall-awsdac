@@ -14,8 +14,11 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 env:
-  # Keep in sync with release.yml.
+  # Keep DHALL_VERSION in sync with release.yml.
   DHALL_VERSION: 1.42.2
+  # dhall-yaml is versioned independently of dhall; see the asset list at
+  # https://github.com/dhall-lang/dhall-haskell/releases for the latest pairing.
+  DHALL_YAML_VERSION: 1.2.12
   # awslabs/diagram-as-code revision used to build awsdac for round-trip tests.
   # README recommends submodule HEAD; pin a commit here when reproducibility matters.
   AWSDAC_REF: main
@@ -46,7 +49,7 @@ jobs:
         run: |
           curl -fsSL "https://github.com/dhall-lang/dhall-haskell/releases/download/${DHALL_VERSION}/dhall-${DHALL_VERSION}-x86_64-linux.tar.bz2" \
             | sudo tar -xj -C /usr/local
-          curl -fsSL "https://github.com/dhall-lang/dhall-haskell/releases/download/${DHALL_VERSION}/dhall-yaml-${DHALL_VERSION}-x86_64-linux.tar.bz2" \
+          curl -fsSL "https://github.com/dhall-lang/dhall-haskell/releases/download/${DHALL_VERSION}/dhall-yaml-${DHALL_YAML_VERSION}-x86_64-linux.tar.bz2" \
             | sudo tar -xj -C /usr/local
 
       - name: Checkout diagram-as-code
