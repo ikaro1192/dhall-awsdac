@@ -96,7 +96,7 @@ dhall hash --file package.dhall
 | [`defaults/`](./defaults) | Default records for the `::` operator — write only the required fields |
 | [`types/`](./types) | Text constants for Position / Direction / Align / etc. |
 | [`helpers/`](./helpers) | `Color.rgba` builders, `DefinitionFile` variant constructors, `Arrow` presets |
-| [`aws/`](./aws) | `AWS::*` resource-type constants (~30 curated) and preset names |
+| [`aws/`](./aws) | `AWS::*` type constants generated from the upstream awsdac icon definitions (~145 resource-level + ~184 service-level), plus preset names |
 | [`examples/`](./examples) | Sample diagrams |
 | [`test/`](./test) | Round-trip tests |
 | [`package.dhall`](./package.dhall) | Public API entry point |
@@ -114,7 +114,8 @@ awsdac.{Position, Direction, Align, HeaderAlign, BorderType, LineStyle, LinkType
 awsdac.Color.{rgba, rgb, transparent, black, white}
 awsdac.DefinitionFile.{url, localFile, embed, awsLightIcons}  -- embed takes a Schema.Embed (DefinitionStructure)
 awsdac.Arrow.{open, default}
-awsdac.AWS.Types.{Diagram, EC2, ELB, AutoScaling, RDS, Lambda, S3, IAM, DynamoDB, SQS, SNS, CloudFront, Route53, APIGateway, CloudWatch, KMS, ECS, EKS}
+awsdac.AWS.Types.{Diagram, EC2, ElasticLoadBalancingV2, AutoScaling, RDS, Lambda, S3, IAM, DynamoDB, SQS, SNS, CloudFront, Route53, ApiGatewayV2, CloudWatch, ECS, ...}  -- ~145 resources; see aws/Types.dhall
+awsdac.AWS.Services.{S3, EC2, CloudFront, Region, ...}  -- ~184 service-level icons; see aws/Services.dhall
 awsdac.AWS.Presets.{AWSCloudNoLogo, PublicSubnet, PrivateSubnet, ApplicationLoadBalancer, NetworkLoadBalancer, User, BlankGroup, Empty}
 ```
 
@@ -139,7 +140,7 @@ AWSDAC=/tmp/awsdac-head bash test/render.sh
 
 ## limitations
 
-- AWS type constants are a curated subset (~30). For anything else, write the `"AWS::Foo::Bar"` string directly.
+- AWS type constants are mechanically generated from the upstream awsdac icon-definition YAML (~145 resource-level entries in `aws/Types.dhall`, ~184 service-level entries in `aws/Services.dhall`). Anything upstream doesn't define can be written as a literal `"AWS::Foo::Bar"` string; awsdac falls back to the service-level icon when a resource type isn't recognised. Re-run `python3 tools/gen-aws-types.py` to refresh from upstream.
 - `DefinitionFile.Embed` is hand-translated from awsdac's `definition.Definition` Go struct. Drift from upstream must be tracked manually (no CI check yet).
 - No high-level abstractions like "create a VPC with public/private subnets" — users compose their own helpers.
 - `Color.rgba` cannot enforce the 0–255 range at the Dhall type level; documented as a contract.

@@ -82,7 +82,7 @@ in    D.Diagram
             , entry
                 "ALB"
                 D.Resource::{
-                , Type = AWS.ELB.LoadBalancer
+                , Type = AWS.ElasticLoadBalancingV2.LoadBalancer
                 , Preset = P.ApplicationLoadBalancer
                 }
             , entry

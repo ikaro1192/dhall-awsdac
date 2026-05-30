@@ -9,6 +9,8 @@ let D = awsdac.Defaults
 
 let AWS = awsdac.AWS.Types
 
+let Svc = awsdac.AWS.Services
+
 let P = awsdac.AWS.Presets
 
 let Pos = awsdac.Position
@@ -22,10 +24,6 @@ let DF = awsdac.DefinitionFile
 let Arrow = awsdac.Arrow
 
 let Resource = awsdac.Schema.Resource
-
--- ElastiCache is outside the curated AWS.Types subset; literal CloudFormation
--- type names work anywhere the library accepts a Type string.
-let ElastiCacheCluster = "AWS::ElastiCache::CacheCluster"
 
 -- ── own helpers ────────────────────────────────────────────────────────────
 -- Compose the small primitives the library exposes into the shapes this
@@ -95,7 +93,7 @@ in    D.Diagram
                 , Children = [ "EdgeStack", "VPC" ]
                 }
             , entry "EdgeStack" (hstack [ "CloudFront", "StaticBucket" ])
-            , entry "CloudFront" (resource AWS.CloudFront.Distribution)
+            , entry "CloudFront" (resource Svc.CloudFront)
             , entry "StaticBucket" (resource AWS.S3.Bucket)
             , entry
                 "VPC"
@@ -113,7 +111,7 @@ in    D.Diagram
             , entry
                 "ALB"
                 D.Resource::{
-                , Type = AWS.ELB.LoadBalancer
+                , Type = AWS.ElasticLoadBalancingV2.LoadBalancer
                 , Preset = P.ApplicationLoadBalancer
                 }
             , entry "AppStack" (hstack [ "AppSubnet1", "AppSubnet2" ])
@@ -126,8 +124,8 @@ in    D.Diagram
             , entry "DataSubnet2" (privateSubnet [ "RDS2", "Cache2" ])
             , entry "RDS1" (resource AWS.RDS.DBInstance)
             , entry "RDS2" (resource AWS.RDS.DBInstance)
-            , entry "Cache1" (resource ElastiCacheCluster)
-            , entry "Cache2" (resource ElastiCacheCluster)
+            , entry "Cache1" (resource AWS.ElastiCache.CacheCluster)
+            , entry "Cache2" (resource AWS.ElastiCache.CacheCluster)
             , entry
                 "User"
                 D.Resource::{

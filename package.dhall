@@ -48,6 +48,7 @@
 , Arrow = ./helpers/Arrow.dhall
 , AWS =
   { Types = ./aws/Types.dhall
+  , Services = ./aws/Services.dhall
   , Presets = ./aws/Presets.dhall
   }
 }
