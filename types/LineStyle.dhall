@@ -1,0 +1,3 @@
+{ Normal = "normal"
+, Dashed = "dashed"
+}

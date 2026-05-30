@@ -1,0 +1,3 @@
+{ Straight = "straight"
+, Dashed = "dashed"
+}

@@ -1,0 +1,3 @@
+{ Position : Text
+, Resource : Text
+}

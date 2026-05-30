@@ -1,0 +1,3 @@
+{ Horizontal = "horizontal"
+, Vertical = "vertical"
+}

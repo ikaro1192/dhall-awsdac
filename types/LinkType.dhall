@@ -1,0 +1,3 @@
+{ Straight = "straight"
+, Orthogonal = "orthogonal"
+}
