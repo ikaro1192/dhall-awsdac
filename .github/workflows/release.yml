@@ -1,0 +1,47 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+env:
+  DHALL_VERSION: 1.42.2
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dhall
+        run: |
+          curl -fsSL "https://github.com/dhall-lang/dhall-haskell/releases/download/v${DHALL_VERSION}/dhall-${DHALL_VERSION}-x86_64-linux.tar.bz2" \
+            | sudo tar -xj -C /usr/local
+
+      - name: Type-check package
+        run: dhall type --file package.dhall > /dev/null
+
+      - name: Compute SHA256
+        id: hash
+        run: |
+          sha=$(dhall hash --file package.dhall)
+          echo "sha=${sha}" >> "$GITHUB_OUTPUT"
+          echo "${sha}" > package.dhall.sha256
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: package.dhall.sha256
+          body: |
+            ## URL import
+
+            ```dhall
+            let awsdac =
+                  https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/package.dhall
+                    ${{ steps.hash.outputs.sha }}
+            ```
+
+            Hash computed with `dhall ${{ env.DHALL_VERSION }}`.

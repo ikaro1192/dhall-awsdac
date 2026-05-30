@@ -72,7 +72,7 @@ Full examples: [`examples/alb-ec2.dhall`](./examples/alb-ec2.dhall), [`examples/
 
 ## URL import
 
-Once published, pin via SHA256:
+Pin via SHA256:
 
 ```dhall
 let awsdac =
@@ -80,11 +80,10 @@ let awsdac =
         sha256:<hash>
 ```
 
-Current hash:
+The SHA256 for each tagged release is published on the [Releases page](../../releases) (also attached as `package.dhall.sha256`). To recompute locally:
 
 ```bash
-$ dhall hash --file package.dhall
-sha256:24544c94abadc09fd22a817c57307a4ecf1b8719d76561a4c8c7fe11c4471108
+dhall hash --file package.dhall
 ```
 
 > Expect breaking changes during the v0.x series.
