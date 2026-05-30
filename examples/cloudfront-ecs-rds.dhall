@@ -21,22 +21,17 @@ let Align = awsdac.Align
 
 let DF = awsdac.DefinitionFile
 
-let Arrow = awsdac.Arrow
-
 let entry = awsdac.Schema.entry
+
+let hstack = awsdac.Layout.hstack
+
+let arrow = awsdac.Link.arrow
 
 -- ── own helpers ────────────────────────────────────────────────────────────
 -- Compose the small primitives the library exposes into the shapes this
 -- diagram actually needs.
 
 let resource = \(t : Text) -> D.Resource::{ Type = t }
-
-let hstack =
-      \(children : List Text) ->
-        D.Resource::{
-        , Type = AWS.Diagram.HorizontalStack
-        , Children = children
-        }
 
 let publicSubnet =
       \(children : List Text) ->
@@ -52,19 +47,6 @@ let privateSubnet =
         , Type = AWS.EC2.Subnet
         , Preset = P.PrivateSubnet
         , Children = children
-        }
-
-let link =
-      \(s : Text) ->
-      \(sp : Text) ->
-      \(t : Text) ->
-      \(tp : Text) ->
-        D.Link::{
-        , Source = s
-        , SourcePosition = sp
-        , Target = t
-        , TargetPosition = tp
-        , TargetArrowHead = Arrow.open
         }
 
 in    D.Diagram
@@ -129,15 +111,15 @@ in    D.Diagram
                 }
             ]
           , Links =
-            [ link "User" Pos.N "CloudFront" Pos.S
-            , link "CloudFront" Pos.E "StaticBucket" Pos.W
-            , link "CloudFront" Pos.SSW "ALB" Pos.N
-            , link "ALB" Pos.SSW "ECSService1" Pos.NNE
-            , link "ALB" Pos.SSE "ECSService2" Pos.NNW
-            , link "ECSService1" Pos.SSW "RDS1" Pos.NNE
-            , link "ECSService1" Pos.SSE "Cache1" Pos.NNW
-            , link "ECSService2" Pos.SSW "RDS2" Pos.NNE
-            , link "ECSService2" Pos.SSE "Cache2" Pos.NNW
+            [ arrow "User" Pos.N "CloudFront" Pos.S
+            , arrow "CloudFront" Pos.E "StaticBucket" Pos.W
+            , arrow "CloudFront" Pos.SSW "ALB" Pos.N
+            , arrow "ALB" Pos.SSW "ECSService1" Pos.NNE
+            , arrow "ALB" Pos.SSE "ECSService2" Pos.NNW
+            , arrow "ECSService1" Pos.SSW "RDS1" Pos.NNE
+            , arrow "ECSService1" Pos.SSE "Cache1" Pos.NNW
+            , arrow "ECSService2" Pos.SSW "RDS2" Pos.NNE
+            , arrow "ECSService2" Pos.SSE "Cache2" Pos.NNW
             ]
           }
         }

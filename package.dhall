@@ -47,6 +47,8 @@
 , Color = ./helpers/Color.dhall
 , DefinitionFile = ./helpers/DefinitionFile.dhall
 , Arrow = ./helpers/Arrow.dhall
+, Layout = ./helpers/Layout.dhall
+, Link = ./helpers/Link.dhall
 , AWS =
   { Types = ./aws/Types.dhall
   , Services = ./aws/Services.dhall

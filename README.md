@@ -111,6 +111,8 @@ awsdac.{Position, Direction, Align, HeaderAlign, BorderType, LineStyle, LinkType
 awsdac.Color.{rgba, rgb, rgbaClamped, rgbClamped, clamp255, transparent, black, white}
 awsdac.DefinitionFile.{url, localFile, embed, awsLightIcons}  -- embed takes a Schema.Embed (DefinitionStructure)
 awsdac.Arrow.{open, default}
+awsdac.Layout.{hstack, vstack}  -- HorizontalStack / VerticalStack from a List Text of child names
+awsdac.Link.{link, arrow}       -- link s sp t tp (no arrowhead); arrow s sp t tp (Arrow.open on target)
 awsdac.AWS.Types.{Diagram, EC2, ElasticLoadBalancingV2, AutoScaling, RDS, Lambda, S3, IAM, DynamoDB, SQS, SNS, CloudFront, Route53, ApiGatewayV2, CloudWatch, ECS, ...}  -- ~145 resources; see aws/Types.dhall
 awsdac.AWS.Services.{S3, EC2, CloudFront, Region, ...}  -- ~184 service-level icons; see aws/Services.dhall
 awsdac.AWS.Presets.{AWSCloudNoLogo, PublicSubnet, PrivateSubnet, ApplicationLoadBalancer, NetworkLoadBalancer, User, BlankGroup, Empty}
