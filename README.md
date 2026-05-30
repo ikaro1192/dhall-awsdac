@@ -140,7 +140,7 @@ AWSDAC=/tmp/awsdac-head bash test/render.sh
 
 ---
 
-## v1 limitations
+## limitations
 
 - AWS type constants are a curated subset (~30). For anything else, write the `"AWS::Foo::Bar"` string directly.
 - `DefinitionFile.Embed` is hand-translated from awsdac's `definition.Definition` Go struct. Drift from upstream must be tracked manually (no CI check yet).
