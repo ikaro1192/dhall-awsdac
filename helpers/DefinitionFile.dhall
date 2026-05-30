@@ -1,12 +1,14 @@
 let DefinitionFile = ../schema/DefinitionFile.dhall
 
+let Embed = ../schema/Embed.dhall
+
 let url
     : Text -> DefinitionFile
     = \(u : Text) ->
         { Type = "URL"
         , Url = Some u
         , LocalFile = None Text
-        , Embed = None Text
+        , Embed = None Embed
         }
 
 let localFile
@@ -15,12 +17,12 @@ let localFile
         { Type = "LocalFile"
         , Url = None Text
         , LocalFile = Some p
-        , Embed = None Text
+        , Embed = None Embed
         }
 
 let embed
-    : Text -> DefinitionFile
-    = \(e : Text) ->
+    : Embed -> DefinitionFile
+    = \(e : Embed) ->
         { Type = "Embed"
         , Url = None Text
         , LocalFile = None Text

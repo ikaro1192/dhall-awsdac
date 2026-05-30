@@ -9,12 +9,30 @@
   , ArrowHead = ./schema/ArrowHead.dhall
   , Label = ./schema/Label.dhall
   , Labels = ./schema/Labels.dhall
+  , Embed = ./schema/Embed.dhall
+  , Definition = ./schema/Definition.dhall
+  , DefinitionIcon = ./schema/DefinitionIcon.dhall
+  , DefinitionLabel = ./schema/DefinitionLabel.dhall
+  , DefinitionFill = ./schema/DefinitionFill.dhall
+  , DefinitionBorder = ./schema/DefinitionBorder.dhall
+  , DefinitionDirectory = ./schema/DefinitionDirectory.dhall
+  , DefinitionZipFile = ./schema/DefinitionZipFile.dhall
+  , DefinitionCFn = ./schema/DefinitionCFn.dhall
   }
 , Defaults =
   { Diagram = ./defaults/Diagram.dhall
   , Resource = ./defaults/Resource.dhall
   , Link = ./defaults/Link.dhall
   , Label = ./defaults/Label.dhall
+  , Embed = ./defaults/Embed.dhall
+  , Definition = ./defaults/Definition.dhall
+  , DefinitionIcon = ./defaults/DefinitionIcon.dhall
+  , DefinitionLabel = ./defaults/DefinitionLabel.dhall
+  , DefinitionFill = ./defaults/DefinitionFill.dhall
+  , DefinitionBorder = ./defaults/DefinitionBorder.dhall
+  , DefinitionDirectory = ./defaults/DefinitionDirectory.dhall
+  , DefinitionZipFile = ./defaults/DefinitionZipFile.dhall
+  , DefinitionCFn = ./defaults/DefinitionCFn.dhall
   }
 , Position = ./types/Position.dhall
 , Direction = ./types/Direction.dhall

@@ -1,0 +1,2 @@
+{ HasChildren : Bool
+}

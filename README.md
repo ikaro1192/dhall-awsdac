@@ -84,7 +84,7 @@ Current hash:
 
 ```bash
 $ dhall hash --file package.dhall
-sha256:b38b2499b45c72e7c0b261d2131a36c7522a128496253081cd293356ff9cb142
+sha256:24544c94abadc09fd22a817c57307a4ecf1b8719d76561a4c8c7fe11c4471108
 ```
 
 > Expect breaking changes during the v0.x series.
@@ -115,7 +115,7 @@ awsdac.Schema.{Diagram, Resource, Link, ...}     -- types
 awsdac.Defaults.{Diagram, Resource, Link, Label} -- :: defaults
 awsdac.{Position, Direction, Align, HeaderAlign, BorderType, LineStyle, LinkType, ArrowHeadType, IconFillType}
 awsdac.Color.{rgba, rgb, transparent, black, white}
-awsdac.DefinitionFile.{url, localFile, embed, awsLightIcons}
+awsdac.DefinitionFile.{url, localFile, embed, awsLightIcons}  -- embed takes a Schema.Embed (DefinitionStructure)
 awsdac.Arrow.{open, default}
 awsdac.AWS.Types.{Diagram, EC2, ELB, AutoScaling, RDS, Lambda, S3, IAM, DynamoDB, SQS, SNS, CloudFront, Route53, APIGateway, CloudWatch, KMS, ECS, EKS}
 awsdac.AWS.Presets.{AWSCloudNoLogo, PublicSubnet, PrivateSubnet, ApplicationLoadBalancer, NetworkLoadBalancer, User, BlankGroup, Empty}
@@ -143,7 +143,7 @@ AWSDAC=/tmp/awsdac-head bash test/render.sh
 ## v1 limitations
 
 - AWS type constants are a curated subset (~30). For anything else, write the `"AWS::Foo::Bar"` string directly.
-- `DefinitionFile.Embed` has a type slot but full `definition.DefinitionStructure` support is deferred to v2.
+- `DefinitionFile.Embed` is hand-translated from awsdac's `definition.Definition` Go struct. Drift from upstream must be tracked manually (no CI check yet).
 - No high-level abstractions like "create a VPC with public/private subnets" — users compose their own helpers.
 - `Color.rgba` cannot enforce the 0–255 range at the Dhall type level; documented as a contract.
 - Semantic awsdac constraints (e.g. Canvas must exist) are not expressible in Dhall and surface as awsdac runtime errors.
